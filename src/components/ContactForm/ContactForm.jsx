@@ -1,29 +1,24 @@
 import React from 'react';
-import { addContact } from 'redux/operations';
-// import { nanoid } from 'nanoid';
+import {
+  useFetchContactsQuery,
+  useAddContactMutation,
+} from 'redux/contactsSlice';
+
 import {
   PhonebookForm,
   PhonebookLabel,
   PhonebookButton,
 } from './ContactForm.styled';
-import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from 'redux/selectors';
 
 export const ContactForm = () => {
-  const contacts = useSelector(getContacts);
-  const dispatch = useDispatch();
+  const [addContact] = useAddContactMutation();
+  const { data: contacts } = useFetchContactsQuery();
 
   const formSubmitHandler = e => {
     e.preventDefault();
     const form = e.target;
     const name = form.elements.name.value;
     const phone = form.elements.phone.value;
-
-    // const contact = {
-    //   // id: nanoid(),
-    //   name,
-    //   phone,
-    // };
 
     if (
       contacts.find(
@@ -32,7 +27,10 @@ export const ContactForm = () => {
     ) {
       return alert(`${name} is already in contacts.`);
     }
-    dispatch(addContact({ name, phone }));
+    addContact({
+      name,
+      phone,
+    });
     form.reset();
   };
 

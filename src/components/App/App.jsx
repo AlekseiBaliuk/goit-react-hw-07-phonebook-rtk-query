@@ -1,23 +1,14 @@
-import { Loader } from 'components/Loader/Loader';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts } from 'redux/operations';
-import { getError, getIsLoading } from 'redux/selectors';
-
+import React from 'react';
+import { useFetchContactsQuery } from 'redux/contactsSlice';
 import { ContactForm } from '../ContactForm/ContactForm';
 import { ContactList } from '../ContactList/ContactList';
 import { Filter } from '../Filter/Filter';
+import { Loader } from 'components/Loader/Loader';
 
 import { Container, PhonebookTitle, ContactsTitle } from './App.styled';
 
 export const App = () => {
-  const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  const { error, isFetching } = useFetchContactsQuery();
 
   return (
     <Container>
@@ -26,7 +17,7 @@ export const App = () => {
       <ContactsTitle>Contacts</ContactsTitle>
       <Filter />
       <ContactList />
-      {isLoading && !error && <Loader />}
+      {isFetching && !error && <Loader />}
     </Container>
   );
 };

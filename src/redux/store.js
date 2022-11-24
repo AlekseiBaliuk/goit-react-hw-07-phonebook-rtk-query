@@ -1,10 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { contactsSlice } from './contactsSlice';
+import { setupListeners } from '@reduxjs/toolkit/query';
+import { phonebookApi } from './contactsSlice';
 import { filterSlice } from './filterSlice';
 
 export const store = configureStore({
   reducer: {
-    contacts: contactsSlice.reducer,
     filter: filterSlice.reducer,
+    [phonebookApi.reducerPath]: phonebookApi.reducer,
   },
+  middleware: getDefaultMiddleware => [
+    ...getDefaultMiddleware(),
+    phonebookApi.middleware,
+  ],
 });
+
+setupListeners(store.dispatch);
