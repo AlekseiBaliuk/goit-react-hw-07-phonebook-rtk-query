@@ -3,7 +3,7 @@ import { useFetchContactsQuery } from 'redux/contactsSlice';
 import { useSelector } from 'react-redux';
 import { getFilter } from 'redux/selectors';
 import { ContactListItem } from 'components/ContactListItem/ContactListItem';
-import { ContactListUl } from './ContactList.styled';
+import * as SC from './ContactList.styled';
 
 export const ContactList = () => {
   const { data: contacts } = useFetchContactsQuery();
@@ -17,13 +17,13 @@ export const ContactList = () => {
   return (
     <>
       {!contacts ? (
-        <p>No contacts</p>
+        <SC.Info>No contacts</SC.Info>
       ) : (
-        <ContactListUl>
+        <SC.ContactListUl>
           {visibleContacts.map(({ id, name, phone }) => (
             <ContactListItem key={id} id={id} name={name} phone={phone} />
           ))}
-        </ContactListUl>
+        </SC.ContactListUl>
       )}
     </>
   );

@@ -11,6 +11,10 @@ export const phonebookApi = createApi({
       query: () => '/contacts',
       providesTags: ['Contact'],
     }),
+    fetchContactsById: builder.query({
+      query: id => `/contacts/${id}`,
+      providesTags: ['Contact'],
+    }),
     addContact: builder.mutation({
       query: contact => ({
         url: '/contacts',
@@ -26,11 +30,21 @@ export const phonebookApi = createApi({
       }),
       invalidatesTags: ['Contact'],
     }),
+    updateContact: builder.mutation({
+      query: fields => ({
+        url: `/contacts/${fields.id}`,
+        method: 'PUT',
+        body: fields,
+      }),
+      invalidatesTags: ['Contact'],
+    }),
   }),
 });
 
 export const {
   useFetchContactsQuery,
+  useFetchContactsByIdQuery,
   useAddContactMutation,
   useDeleteContactMutation,
+  useUpdateContactMutation,
 } = phonebookApi;

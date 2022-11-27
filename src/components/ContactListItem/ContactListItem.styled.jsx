@@ -19,4 +19,16 @@ export const ContactListButton = styled.button`
   &:hover {
     background-color: ${p => p.theme.colors.primary};
   }
+
+  &:disabled {
+    color: ${p => p.theme.colors.white};
+    background-color: ${p => p.theme.colors.grey};
+    border-color: ${p => p.theme.colors.grey};
+  }
+`;
+
+export const BtnWrapper = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  gap: 5px;
 `;

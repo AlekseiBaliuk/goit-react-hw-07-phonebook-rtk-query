@@ -4,20 +4,22 @@ import { ContactForm } from '../ContactForm/ContactForm';
 import { ContactList } from '../ContactList/ContactList';
 import { Filter } from '../Filter/Filter';
 import { Loader } from 'components/Loader/Loader';
+import { Toaster } from 'react-hot-toast';
 
-import { Container, PhonebookTitle, ContactsTitle } from './App.styled';
+import * as SC from './App.styled';
 
 export const App = () => {
-  const { error, isFetching } = useFetchContactsQuery();
+  const { data, error, isFetching } = useFetchContactsQuery();
 
   return (
-    <Container>
-      <PhonebookTitle>Phonebook</PhonebookTitle>
+    <SC.Container>
+      <SC.PhonebookTitle>Phonebook</SC.PhonebookTitle>
       <ContactForm />
-      <ContactsTitle>Contacts</ContactsTitle>
+      <SC.ContactsTitle>Contacts</SC.ContactsTitle>
       <Filter />
-      <ContactList />
+      {data && <ContactList />}
       {isFetching && !error && <Loader />}
-    </Container>
+      <Toaster position="top-right" reverseOrder={true} />
+    </SC.Container>
   );
 };

@@ -7,10 +7,12 @@ export const Container = styled.div`
 `;
 
 export const PhonebookTitle = styled.h1`
+  text-align: center;
   margin-top: ${p => p.theme.space[3]}px;
   margin-bottom: ${p => p.theme.space[3]}px;
 `;
 
 export const ContactsTitle = styled.h2`
+  text-align: center;
   margin-bottom: ${p => p.theme.space[3]}px;
 `;
